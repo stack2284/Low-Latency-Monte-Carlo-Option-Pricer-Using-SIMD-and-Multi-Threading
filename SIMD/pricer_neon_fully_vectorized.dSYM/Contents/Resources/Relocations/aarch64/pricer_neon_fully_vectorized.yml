@@ -1,0 +1,18 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     pricer_neon_fully_vectorized
+relocations:
+  - { offset: 0xC5D5, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x62386, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0xD345, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_pricer_neon_fully_vectorized.cpp, symObjAddr: 0xEA0, symBinAddr: 0x1000011A0, symSize: 0x38 }
+  - { offset: 0xD35D, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_pricer_neon_fully_vectorized.cpp, symObjAddr: 0xEA0, symBinAddr: 0x1000011A0, symSize: 0x38 }
+  - { offset: 0xD503, size: 0x8, addend: 0x0, symName: __ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFviifffffRfEiifffffSt17reference_wrapperIfEEEEEE6_M_runEv, symObjAddr: 0xC, symBinAddr: 0x10000084C, symSize: 0x24 }
+  - { offset: 0xD690, size: 0x8, addend: 0x0, symName: __ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFviifffffRfEiifffffSt17reference_wrapperIfEEEEEED0Ev, symObjAddr: 0x44, symBinAddr: 0x100000884, symSize: 0x3C }
+  - { offset: 0xD6B2, size: 0x8, addend: 0x0, symName: __ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFviifffffRfEiifffffSt17reference_wrapperIfEEEEEED0Ev, symObjAddr: 0x44, symBinAddr: 0x100000884, symSize: 0x3C }
+  - { offset: 0xD6DB, size: 0x8, addend: 0x0, symName: __ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFviifffffRfEiifffffSt17reference_wrapperIfEEEEEED1Ev, symObjAddr: 0x30, symBinAddr: 0x100000870, symSize: 0x14 }
+  - { offset: 0xED59, size: 0x8, addend: 0x0, symName: __ZNSt6vectorISt6threadSaIS0_EED1Ev, symObjAddr: 0x828, symBinAddr: 0x100001068, symSize: 0x124 }
+  - { offset: 0xF08F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xAA0, symBinAddr: 0x1000011E0, symSize: 0x3E4 }
+  - { offset: 0x10353, size: 0x8, addend: 0x0, symName: __Z21run_simulation_threadiifffffRf, symObjAddr: 0x104, symBinAddr: 0x100000944, symSize: 0x724 }
+  - { offset: 0x1206B, size: 0x8, addend: 0x0, symName: __ZNSt6thread24_M_thread_deps_never_runEv, symObjAddr: 0x8, symBinAddr: 0x100000848, symSize: 0x4 }
+  - { offset: 0x121AE, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x100000840, symSize: 0x8 }
+  - { offset: 0x121D9, size: 0x8, addend: 0x0, symName: __ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_.isra.0, symObjAddr: 0x80, symBinAddr: 0x1000008C0, symSize: 0x84 }
+...
