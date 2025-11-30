@@ -6,7 +6,7 @@ This is a common problem in quantitative finance, where performance is critical.
 
 ---
 
-## 🎯 Core Concepts Demonstrated
+##  Core Concepts Demonstrated
 
 * **C++ Programming:** Clean, modern C++ (`std::c++17`).
 * **Financial Modeling:** Implementation of the Black-Scholes model via Monte Carlo simulation.
@@ -17,7 +17,7 @@ This is a common problem in quantitative finance, where performance is critical.
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 The project is broken into three distinct stages of optimization:
 
@@ -30,7 +30,7 @@ The project is broken into three distinct stages of optimization:
 
 ---
 
-## 🛠️ How to Build and Run
+## How to Build and Run
 
 All versions should be compiled with full optimizations (`-O3`) to ensure a fair performance comparison.
 
@@ -73,7 +73,7 @@ g++ -O3 -std=c++17 -g pricer_neon.cpp -o pricer_neon
 ./pricer_neon
 ```
 
-## 📊 Performance Results
+## Performance Results
 
 These benchmarks were run on a **MacBook Pro (Apple M4, 14 Cores)**, comparing the time to complete **10,000,000 simulations**.
 
@@ -87,7 +87,7 @@ These benchmarks were run on a **MacBook Pro (Apple M4, 14 Cores)**, comparing t
 
 ---
 
-## 📈 Analysis of Speedup
+## Analysis of Speedup
 
 * **Step 1 (Multi-Threading):** The **~6.7x speedup** comes from leveraging **thread-level parallelism**. The work is divided among 14 CPU cores, allowing them to run in parallel. The speedup is not a perfect 14x due to thread creation/management overhead and other system factors.
 
