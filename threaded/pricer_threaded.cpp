@@ -25,11 +25,14 @@ void run_simulation_thread(
     double Z ; 
     double ST; 
     double payoff; 
+    const double sqrt_t = std :: sqrt(T); 
+    const double drift = (r - 0.5 * sigma * sigma)*T; 
+    const double vol_sqrt_T = sigma * sqrt_t;
 
     while(i > 0){
         i--;   
         Z = distribution_normal(generator); 
-        ST = S0 * std :: exp((r  - 0.5 * sigma * sigma)*T + sigma * Z * std :: sqrt(T));
+        ST = S0 * std :: exp(drift + Z * vol_sqrt_T);
         total_thread_output += std :: max(0.0 , ST - K) ;
     }
     output_thread = total_thread_output ; 
