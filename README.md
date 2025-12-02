@@ -2,7 +2,7 @@
 
 This project demonstrates the progressive optimization of a C++ Monte Carlo simulation for pricing a European call option. The goal is to show a "layers of optimization" approach, moving from a naive single-threaded baseline to a fully parallelized and vectorized (SIMD) implementation.
 
-This is a common problem in quantitative finance, where performance is critical.
+Preformance critical implementation acheiving upto 28x effiecny using sleef and 16x normally. 
 
 ---
 
@@ -10,7 +10,6 @@ This is a common problem in quantitative finance, where performance is critical.
 
 * **C++ Programming:** Clean, modern C++ (`std::c++17`).
 * **Financial Modeling:** Implementation of the Black-Scholes model via Monte Carlo simulation.
-* **Performance Benchmarking:** Using `std::chrono` to measure execution time.
 * **Concurrency:** Parallelizing work across multiple CPU cores using `std::thread`.
 * **CPU-Level Optimization (SIMD):** Using instruction-level parallelism to perform calculations on multiple data points at once.
 * **ARM NEON Intrinsics:** Writing low-level CPU-specific code for an Apple M4 processor (ARMv9 architecture).
@@ -26,8 +25,8 @@ The project is broken into three distinct stages of optimization:
 * **`/threaded`**:
     * `pricer_threaded.cpp`: The first optimization. This version divides the simulation work among all available CPU cores using `std::thread`. It still uses 64-bit `double`s.
 * **`/SIMD`**:
-    * `pricer_neon.cpp`: The final optimization. This version uses both multi-threading *and* ARM NEON SIMD intrinsics. To maximize SIMD throughput, the calculations are switched from 64-bit `double`s to 32-bit `float`s, allowing 4 paths to be processed per instruction instead of 2.
-
+    * `pricer_neon.cpp`: This version uses both multi-threading *and* ARM NEON SIMD intrinsics. To maximize SIMD throughput, the calculations are switched from 64-bit `double`s to 32-bit `float`s, allowing 4 paths to be processed per instruction instead of 2.
+    * `pricer_neon_fully_vectorized.cpp`: This version uses sleef library and xoshiro128+ generator. 
 ---
 
 ## How to Build and Run
@@ -73,6 +72,18 @@ g++ -O3 -std=c++17 -g pricer_neon.cpp -o pricer_neon
 ./pricer_neon
 ```
 
+###4. Multi-Threaded + NEON + sleef (SIMD)
+
+```bash
+cd SIMD
+# please make sure here you have the right flags set 
+g++-15 -Ofast -march=armv8.4-a+simd -mcpu=apple-m1 -flto -funroll-loops \
+  -std=c++17 -pipe -fomit-frame-pointer \
+  pricer_neon_fully_vectorized.cpp -I/opt/homebrew/include -L/opt/homebrew/lib -lsleef -lm -o pricer
+./pricer_neon_fully_vectorized
+
+```
+
 ## Performance Results
 
 These benchmarks were run on a **MacBook Pro (Apple M4, 14 Cores)**, comparing the time to complete **10,000,000 simulations**.
@@ -82,6 +93,7 @@ These benchmarks were run on a **MacBook Pro (Apple M4, 14 Cores)**, comparing t
 | **1. Baseline (Single-Thread, `double`)** | `0.205796 s` | `1.00x` |
 | **2. Multi-Threaded (14 Cores, `double`)** | `~0.03056 s` | `~6.73x` |
 | **3. Threaded + NEON (14 Cores, `float`)** | `0.012407 s` | **`16.60x`** |
+| **4. Threaded + sleef + NEON (14 Cores, `float`)** | `0.00719 s` | **`28.60x`** |
 
 > **Note:** The 'Multi-Threaded' time is an estimate. The original test was run with 1M simulations (`0.003056s`) and the result was scaled by 10 to provide a fair comparison against the 10M-simulation benchmarks.
 
@@ -95,4 +107,4 @@ These benchmarks were run on a **MacBook Pro (Apple M4, 14 Cores)**, comparing t
     1.  **Data Type:** By switching from 64-bit `double`s to 32-bit `float`s, we halve the memory footprint for the calculations. This allows the 128-bit NEON registers to pack 4 values at once (`float32x4_t`) instead of just 2 (`float64x2_t`).
     2.  **Instruction-Level Parallelism:** Using NEON intrinsics (like `vld1q_f32`, `vsubq_f32`, `vmaxq_f32`, and `vaddvq_f32`) allows each thread to perform a single operation (like `max(0, payoff)`) on 4 separate simulation paths *at the same time*.
 
-This project successfully demonstrates a 16.6x performance improvement by applying both concurrency and CPU-specific vectorization.
+This project successfully demonstrates a 28.6x performance improvement by applying both concurrency and CPU-specific vectorization.
