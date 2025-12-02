@@ -1,6 +1,6 @@
 //brew install sleef
 
-//g++-15 -Ofast -march=armv8.4-a+simd -mcpu=apple-m4 -flto -funroll-loops \
+//g++-15 -Ofast -march=armv8.4-a+simd -mcpu=apple-m3 -flto -funroll-loops \
   -std=c++17 -pipe -fomit-frame-pointer \
   pricer_neon_fully_vectorized.cpp -I/opt/homebrew/include -L/opt/homebrew/lib -lsleef -lm -o pricer
 // # Run it
@@ -90,7 +90,7 @@ struct PRNG_NEON
         return f;
     }
 
-    
+
 
     // Generate 4 parallel standard normal (Z) values
     // Using the (fast) Ziggurat approximation method

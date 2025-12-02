@@ -2,7 +2,7 @@
 
 This project demonstrates the progressive optimization of a C++ Monte Carlo simulation for pricing a European call option. The goal is to show a "layers of optimization" approach, moving from a naive single-threaded baseline to a fully parallelized and vectorized (SIMD) implementation.
 
-Preformance critical implementation acheiving upto 28x effiecny using sleef and 16x normally. 
+Preformance critical implementation acheiving upto 28x effiecny using sleef and 16x normally.
 
 ---
 
@@ -26,7 +26,7 @@ The project is broken into three distinct stages of optimization:
     * `pricer_threaded.cpp`: The first optimization. This version divides the simulation work among all available CPU cores using `std::thread`. It still uses 64-bit `double`s.
 * **`/SIMD`**:
     * `pricer_neon.cpp`: This version uses both multi-threading *and* ARM NEON SIMD intrinsics. To maximize SIMD throughput, the calculations are switched from 64-bit `double`s to 32-bit `float`s, allowing 4 paths to be processed per instruction instead of 2.
-    * `pricer_neon_fully_vectorized.cpp`: This version uses sleef library and xoshiro128+ generator. 
+    * `pricer_neon_fully_vectorized.cpp`: This version uses sleef library and xoshiro128+ generator.
 ---
 
 ## How to Build and Run
@@ -76,8 +76,8 @@ g++ -O3 -std=c++17 -g pricer_neon.cpp -o pricer_neon
 
 ```bash
 cd SIMD
-# please make sure here you have the right flags set 
-g++-15 -Ofast -march=armv8.4-a+simd -mcpu=apple-m1 -flto -funroll-loops \
+# please make sure here you have the right flags set
+g++-15 -Ofast -march=armv8.4-a+simd -mcpu=apple-m3 -flto -funroll-loops \
   -std=c++17 -pipe -fomit-frame-pointer \
   pricer_neon_fully_vectorized.cpp -I/opt/homebrew/include -L/opt/homebrew/lib -lsleef -lm -o pricer
 ./pricer_neon_fully_vectorized
